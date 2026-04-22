@@ -1,0 +1,33 @@
+{
+  "tone": "professional",
+  "language_style": "clear and specific",
+  "truthfulness_required": true,
+  "truthfulness_note": "All content must be factual and grounded strictly in the provided source material. Do not invent, embellish, or extrapolate claims.",
+
+  "supported_document_types": ["cv", "cover_letter"],
+
+  "cv": {
+    "section_order": ["Summary", "Experience", "Projects", "Education", "Skills", "Coursework"],
+    "max_bullets_per_section": 5,
+    "include_summary": true,
+    "action_verbs_required": true
+  },
+
+  "cover_letter": {
+    "cover_letter_body_paragraphs": 2,
+    "preferred_story_type": "impact",
+    "closing_phrase": "Sincerely"
+  },
+
+  "retrieval": {
+    "max_chunks": 15
+  },
+
+  "formatting": {
+    "font_family": "Calibri",
+    "font_size_body_pt": 11,
+    "font_size_heading_pt": 13,
+    "page_margin_inches": 1.0,
+    "section_spacing_pt": 6
+  }
+}
