@@ -30,7 +30,10 @@ build/
 data/preferences/*.json
 !data/preferences/default_preferences.json
 
-# Claude Code local tool settings — developer-specific, not for the repo
+# ChromaDB persistent store — auto-generated, never commit
+data/chroma/
+
+# Claude Code local tool settings — developer-specific, not for the repo // are we leaving this in here?
 .claude/
 
 # OS junk
