@@ -1,8 +1,8 @@
 import streamlit as st
 import json
 
-if 'user_data' not in st.session_state:
-    st.session_state.user_data = {
+if 'resume_data' not in st.session_state:
+    st.session_state.resume_data = {
         'header': {},
         'objective': '',
         'education': [],
