@@ -66,7 +66,7 @@ if st.button('Generate Tailored CV', type='primary', disabled=not jd.strip()):
     # Step 1: Summarize the role — NO tools attached
     with st.spinner('Analyzing job description...'):
         response1 = client.chat.completions.create(
-            model='gpt-5-nano',
+            model='gpt-4.1-nano',
             messages=[{"role": "user", "content": f"""Summarize the role in a few sentences. Extract the most important points from this job description. Rank them as Essential (explicit requirements) or Preferable (nice-to-haves and responsibilities).
 
 JOB DESCRIPTION:
@@ -81,7 +81,7 @@ Respond ONLY with: a brief summary, then Essential bullets, then Preferable bull
     # Step 2: Tailor + generate docx — tools attached, force tool use
     with st.spinner('Tailoring resume...'):
         response2 = client.chat.completions.create(
-            model='gpt-5-nano',
+            model='gpt-4.1-nano',
             messages=[{"role": "user", "content": f"""Tailor this user profile to the job requirements. Omit irrelevant info, accentuate relevant info. Then call create_resume_docx with the tailored object.
 
 If critically unqualified, respond with text starting "UNQUALIFIED:" and bulleted incompatibilities — do not call the tool.
