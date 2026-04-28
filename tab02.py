@@ -20,7 +20,7 @@ tools = [{
     "type": "function",
     "function": {
         "name": "create_resume_docx",
-        "description": "Build a .docx resume from tailored data. The tailored_json MUST have the exact same top-level shape as the input profile: a 'header' object and a 'sections' array.",
+        "description": "Build a .docx resume from tailored data. The tailored_json MUST have the exact same top-level shape as the input profile: a 'header' object and a 'sections' array. Each section's entries must match the shape required by its 'type'.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -31,10 +31,14 @@ tools = [{
                             "type": "object",
                             "properties": {
                                 "name": {"type": "string"},
-                                "contact_lines": {"type": "array", "items": {"type": "string"}},
+                                "subheader": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "Contact lines such as citizenship, LinkedIn, phone, email."
+                                },
                                 "summary": {"type": "string"}
                             },
-                            "required": ["name", "contact_lines"]
+                            "required": ["name", "subheader"]
                         },
                         "sections": {
                             "type": "array",
@@ -42,10 +46,76 @@ tools = [{
                                 "type": "object",
                                 "properties": {
                                     "title": {"type": "string"},
-                                    "type": {"type": "string", "enum": ["education", "experience", "projects", "skills"]},
+                                    "type": {
+                                        "type": "string",
+                                        "enum": ["education", "experience", "projects", "skills"]
+                                    },
                                     "entries": {
                                         "type": "array",
-                                        "items": {"type": "object"}
+                                        "items": {
+                                            "oneOf": [
+                                                {
+                                                    "type": "object",
+                                                    "description": "Education entry.",
+                                                    "properties": {
+                                                        "institution": {"type": "string"},
+                                                        "institution_detail": {
+                                                            "type": "array",
+                                                            "items": {"type": "string"}
+                                                        },
+                                                        "date": {"type": "string"},
+                                                        "degree": {
+                                                            "type": "array",
+                                                            "items": {"type": "string"}
+                                                        },
+                                                        "coursework": {
+                                                            "type": "array",
+                                                            "items": {"type": "string"}
+                                                        }
+                                                    },
+                                                    "required": ["institution", "date", "degree"]
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "description": "Experience entry (used for both professional and leadership experience).",
+                                                    "properties": {
+                                                        "role": {"type": "string"},
+                                                        "org": {"type": "string"},
+                                                        "date": {"type": "string"},
+                                                        "bullets": {
+                                                            "type": "array",
+                                                            "items": {"type": "string"}
+                                                        }
+                                                    },
+                                                    "required": ["role", "org", "date", "bullets"]
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "description": "Project entry.",
+                                                    "properties": {
+                                                        "name": {"type": "string"},
+                                                        "date": {"type": "string"},
+                                                        "bullets": {
+                                                            "type": "array",
+                                                            "items": {"type": "string"}
+                                                        }
+                                                    },
+                                                    "required": ["name", "date", "bullets"]
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "description": "Skills entry — one per category row.",
+                                                    "properties": {
+                                                        "label": {"type": "string"},
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {"type": "string"}
+                                                        }
+                                                    },
+                                                    "required": ["label", "items"]
+                                                }
+                                            ]
+                                        }
                                     }
                                 },
                                 "required": ["title", "type", "entries"]
@@ -55,14 +125,14 @@ tools = [{
                     "required": ["header", "sections"]
                 }
             },
-            "required": ["tailored_json"],
+            "required": ["tailored_json"]
         }
     }
 }]
 
 jd = st.text_area('Paste Job Description', height=200)
 
-if st.button('Generate Tailored CV', type='primary', disabled=not jd.strip()):
+if st.button('Generate Tailored CV', type='primary', disabled=not jd.strip(), width='stretch'):
     # Step 1: Summarize the role — NO tools attached
     with st.spinner('Analyzing job description...'):
         response1 = client.chat.completions.create(
@@ -84,13 +154,13 @@ Respond ONLY with: a brief summary, then Essential bullets, then Preferable bull
             model='gpt-4.1-nano',
             messages=[{"role": "user", "content": f"""Tailor this user profile to the job requirements. Omit irrelevant info, accentuate relevant info. Then call create_resume_docx with the tailored object.
 
-If critically unqualified, respond with text starting "UNQUALIFIED:" and bulleted incompatibilities — do not call the tool.
+            If critically unqualified, respond with text starting "UNQUALIFIED:" and bulleted incompatibilities — do not call the tool.
 
-JOB ANALYSIS:
-{summary}
+            JOB ANALYSIS:
+            {summary}
 
-USER PROFILE:
-{json.dumps(st.session_state.user_data, indent=2)}"""}],
+            USER PROFILE:
+            {json.dumps(st.session_state.user_data, indent=2)}"""}],
             tools=tools,
             tool_choice="auto",
         )

@@ -1,7 +1,7 @@
 {
   "header": {
     "name": "EZRA J MILLER",
-    "contact_lines": [
+    "subheader": [
       "US & UK Dual Citizen",
       "linkedin.com/in/ezrajmiller",
       "+1 (207) 504-6622",
@@ -16,11 +16,10 @@
       "type": "education",
       "entries": [
         {
-          "institution_bold": "Syracuse University,",
-          "institution_detail": "School of Information Studies \u00b7 College of Arts and Sciences",
+          "institution": "Syracuse University",
+          "institution_detail": ["School of Information Studies", "College of Arts and Sciences"],
           "date": "May 2026",
-          "degree": "B.S. Applied Data Analytics \u00b7 B.A. Psychology \u00b7 Minor in Business Management",
-          "coursework_label": "Relevant Coursework: ",
+          "degree": ["B.S. Applied Data Analytics", "B.A. Psychology", "Minor in Business Management"],
           "coursework": [
             "Big Data Analytics",
             "Data-Driven Inquiry",
@@ -36,9 +35,9 @@
       "type": "experience",
       "entries": [
         {
-          "role": "Co-Owner, ",
+          "role": "Co-Owner",
           "org": "Comstock Customs, Syracuse NY",
-          "date": "April 2025 \u2013 Present",
+          "date": "April 2025 - Present",
           "bullets": [
             "Design all artwork using Adobe Photoshop and Illustrator",
             "Coordinate with clients and negotiate specifications",
@@ -49,9 +48,9 @@
           ]
         },
         {
-          "role": "Webmaster, ",
+          "role": "Webmaster",
           "org": "Sigma Chi Fraternity, Syracuse NY",
-          "date": "August 2024 \u2013 May 2025",
+          "date": "August 2024 - May 2025",
           "bullets": [
             "Directed recruitment marketing across Instagram and the chapter website, increasing chapter visibility",
             "Led philanthropy promotion through digital engagement and merchandise sales, contributing to chapter\u2019s record-breaking $155,000 fundraising effort"
@@ -92,7 +91,7 @@
         {
           "role": "Lead Guitarist, ",
           "org": "Oldenvice, Rome NY",
-          "date": "February 2023 \u2013 Present",
+          "date": "February 2023 - Present",
           "bullets": [
             "Lead 4-person band with regular performances at Central NY venues; developed 2-hour repertoire",
             "Direct rehearsals, coordinate performance execution, and manage ensemble cohesion",

@@ -1,46 +1,7 @@
-# Streamlit secrets — never commit
 .streamlit/secrets.toml
 
-# Python bytecode
-__pycache__/
-*.py[cod]
-*.pyo
+ejm_info.json
 
-# Pytest
-.pytest_cache/
-.coverage
-htmlcov/
+build_resume.py
 
-# Virtual environments
-.venv/
-venv/
-env/
-
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
-
-# Environment variables and secrets — never commit these
-.env
-.env.*
-*.env
-
-# Per-user preference overrides — only default_preferences.json should be committed
-data/preferences/*.json
-!data/preferences/default_preferences.json
-
-# ChromaDB persistent store — auto-generated, never commit
-data/chroma/
-
-# Claude Code local tool settings — developer-specific, not for the repo // are we leaving this in here?
-.claude/
-
-# OS junk
-.DS_Store
-Thumbs.db
-
-# IDEs
-.idea/
-.vscode/
-*.iml
+sample_user_profile.json

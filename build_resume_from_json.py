@@ -194,7 +194,7 @@ def emit_label_value(doc, label, value):
 def render_education(doc, entries):
     for entry in entries:
         emit_dated_line(doc,
-                        f'{entry["institution_bold"]} ',
+                        f'{entry["institution"]} ',
                         entry.get("institution_detail", ""),
                         entry["date"])
         if "degree" in entry:
@@ -209,7 +209,6 @@ def render_education(doc, entries):
                              entry.get("coursework_label", "Relevant Coursework: "),
                              cw_text)
 
-
 def render_experience(doc, entries):
     for i, entry in enumerate(entries):
         if i > 0:
@@ -218,7 +217,6 @@ def render_experience(doc, entries):
         for bullet in entry.get("bullets", []):
             emit_bullet(doc, bullet)
 
-
 def render_projects(doc, entries):
     for i, entry in enumerate(entries):
         if i > 0:
@@ -226,7 +224,6 @@ def render_projects(doc, entries):
         emit_dated_line(doc, f'{entry["name"]} ', None, entry["date"])
         for bullet in entry.get("bullets", []):
             emit_bullet(doc, bullet)
-
 
 def render_skills(doc, entries):
     for entry in entries:
@@ -240,7 +237,6 @@ _RENDERERS = {
     "projects":   render_projects,
     "skills":     render_skills,
 }
-
 
 # =============================================================================
 # Document scaffolding (styles, page setup, numbering)
@@ -328,7 +324,6 @@ def init_document():
 
     return doc
 
-
 # =============================================================================
 # Contact-line balancing
 # =============================================================================
@@ -337,7 +332,6 @@ _SEP = " \u00b7 "
 # Approximate max characters that fit on one centered line
 # (Times New Roman 12pt, 7.5" content width ≈ 80 chars)
 _MAX_LINE_CHARS = 80
-
 
 def _balance_contact_lines(items):
     """Return 1 or 2 joined strings, splitting only if a single line overflows."""
