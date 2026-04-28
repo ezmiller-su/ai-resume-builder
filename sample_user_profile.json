@@ -1,0 +1,165 @@
+{
+  "header": {
+    "name": "Elena Vasquez",
+    "title": "Senior Data Engineer",
+    "email": "elena.vasquez@email.com",
+    "phone": "(512) 555-0147",
+    "location": "Austin, TX",
+    "linkedin": "linkedin.com/in/elenavasquez",
+    "github": "github.com/evasquez-data",
+    "website": "elenavasquez.dev"
+  },
+  "objective": "Data engineer with 8 years of experience designing and maintaining large-scale data pipelines, cloud infrastructure, and real-time analytics platforms. Seeking a principal engineering role where I can lead cross-functional teams in building reliable, cost-efficient data systems that drive strategic decision-making.",
+  "education": [
+    {
+      "school": "University of Texas at Austin",
+      "degree": "Master of Science in Computer Science",
+      "dates": "August 2014 – May 2016",
+      "gpa": "3.87",
+      "honors": "Graduate Research Fellowship",
+      "relevant_coursework": [
+        "Distributed Systems",
+        "Advanced Database Design",
+        "Machine Learning",
+        "Statistical Modeling"
+      ]
+    },
+    {
+      "school": "Georgia Institute of Technology",
+      "degree": "Bachelor of Science in Computer Engineering",
+      "dates": "August 2010 – May 2014",
+      "gpa": "3.62",
+      "honors": "Magna Cum Laude, Dean's List (6 semesters)",
+      "relevant_coursework": [
+        "Data Structures & Algorithms",
+        "Operating Systems",
+        "Linear Algebra",
+        "Computer Architecture"
+      ]
+    }
+  ],
+  "work_experience": [
+    {
+      "company": "Meridian Analytics",
+      "title": "Senior Data Engineer",
+      "location": "Austin, TX",
+      "dates": "March 2022 – Present",
+      "description": [
+        "Architected a real-time event streaming platform on Apache Kafka processing 2.4 million events per minute, reducing downstream latency by 68%.",
+        "Led a team of 5 engineers in migrating 140+ legacy ETL jobs from on-premise Informatica to Apache Airflow on AWS, completing the migration 3 weeks ahead of schedule.",
+        "Designed and implemented a medallion-architecture data lakehouse on Databricks and Delta Lake, consolidating 12 disparate data sources into a single unified analytics layer.",
+        "Established data quality monitoring using Great Expectations, catching schema drift and anomalies that previously went undetected for days.",
+        "Reduced monthly AWS spend by $18,000 through Spot Instance strategies, S3 lifecycle policies, and right-sizing Redshift clusters."
+      ]
+    },
+    {
+      "company": "Prism Health Technologies",
+      "title": "Data Engineer II",
+      "location": "Dallas, TX",
+      "dates": "June 2019 – February 2022",
+      "description": [
+        "Built HIPAA-compliant data pipelines ingesting electronic health records from 23 hospital systems, processing over 50 million patient encounters annually.",
+        "Developed a change-data-capture system using Debezium and Kafka Connect, enabling near-real-time synchronization between operational databases and the analytics warehouse.",
+        "Created dbt transformation models with full test coverage, reducing analyst-reported data discrepancies by 91%.",
+        "Partnered with the machine learning team to build feature engineering pipelines that served a patient readmission prediction model deployed across 8 hospital networks.",
+        "Authored internal documentation and runbooks that reduced on-call incident resolution time from 45 minutes to under 12 minutes on average."
+      ]
+    },
+    {
+      "company": "Cobalt Financial Services",
+      "title": "Junior Data Engineer",
+      "location": "Atlanta, GA",
+      "dates": "July 2016 – May 2019",
+      "description": [
+        "Maintained and optimized a suite of SQL Server Integration Services packages processing nightly batch loads of 200+ million transaction records.",
+        "Wrote Python and PySpark scripts to clean, deduplicate, and standardize customer data across three acquired subsidiary databases.",
+        "Assisted in the company's initial cloud migration to Azure, provisioning Data Factory pipelines, Blob Storage, and Synapse Analytics environments.",
+        "Built Tableau dashboards for the fraud analytics team, surfacing suspicious transaction patterns that contributed to a 14% increase in fraud detection rates."
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Certified Data Engineer – Associate",
+      "issuer": "Amazon Web Services",
+      "date": "September 2023"
+    },
+    {
+      "name": "Databricks Certified Data Engineer Professional",
+      "issuer": "Databricks",
+      "date": "January 2023"
+    },
+    {
+      "name": "Google Cloud Professional Data Engineer",
+      "issuer": "Google Cloud",
+      "date": "April 2021"
+    },
+    {
+      "name": "Apache Kafka Certification",
+      "issuer": "Confluent",
+      "date": "November 2020"
+    }
+  ],
+  "skills": [
+    "Python",
+    "SQL",
+    "PySpark",
+    "Apache Kafka",
+    "Apache Airflow",
+    "dbt",
+    "Databricks",
+    "Delta Lake",
+    "AWS (Redshift, Glue, S3, Lambda, EMR)",
+    "Azure (Data Factory, Synapse, Blob Storage)",
+    "GCP (BigQuery, Dataflow, Cloud Composer)",
+    "Terraform",
+    "Docker",
+    "Kubernetes",
+    "Git",
+    "CI/CD (GitHub Actions, Jenkins)",
+    "Great Expectations",
+    "Tableau",
+    "PostgreSQL",
+    "MongoDB"
+  ],
+  "awards": [
+    {
+      "name": "Engineering Excellence Award",
+      "issuer": "Meridian Analytics",
+      "date": "2023",
+      "description": "Recognized for leading the data lakehouse migration that unified the company's analytics platform and saved over $200,000 annually in infrastructure costs."
+    },
+    {
+      "name": "Hackathon Winner – Best Data Solution",
+      "issuer": "Prism Health Technologies",
+      "date": "2021",
+      "description": "Built a prototype real-time patient flow dashboard in 48 hours that was later adopted into the production monitoring suite."
+    },
+    {
+      "name": "Outstanding Graduate Teaching Assistant",
+      "issuer": "University of Texas at Austin, Department of Computer Science",
+      "date": "2015",
+      "description": "Awarded for leading lab sections in the graduate-level Distributed Systems course with top student evaluation scores."
+    }
+  ],
+  "projects": [
+    {
+      "name": "OpenTransit Pipeline",
+      "description": "Open-source real-time ingestion framework for public transit GTFS-RT feeds. Streams bus and rail position data through Kafka into a PostGIS database, powering a live map dashboard used by three city transit advocacy groups.",
+      "technologies": ["Python", "Apache Kafka", "PostGIS", "FastAPI", "Docker"],
+      "url": "github.com/evasquez-data/opentransit-pipeline"
+    },
+    {
+      "name": "Cost Watcher",
+      "description": "Internal CLI tool that scans AWS accounts for idle or over-provisioned resources and generates Slack-delivered weekly savings reports. Adopted company-wide at Meridian Analytics after identifying $6,400/month in recoverable spend within its first week.",
+      "technologies": ["Python", "Boto3", "AWS Cost Explorer API", "Slack API"],
+      "url": "github.com/evasquez-data/cost-watcher"
+    },
+    {
+      "name": "MedSchema Validator",
+      "description": "Schema validation library for healthcare HL7 FHIR resources. Performs deep structural checks, terminology binding validation, and generates human-readable compliance reports. Used internally at Prism Health to vet incoming data from new hospital integrations.",
+      "technologies": ["Python", "JSON Schema", "FHIR R4", "pytest"],
+      "url": "github.com/evasquez-data/medschema-validator"
+    }
+  ]
+}
