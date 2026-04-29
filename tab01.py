@@ -2,6 +2,7 @@ import streamlit as st
 import json
 from openai import OpenAI
 import chromadb
+import pdfplumber
 
 st.title('User Profile')
 
@@ -19,14 +20,46 @@ if 'section_bullets' not in st.session_state:
 
 openai_client = OpenAI(api_key=st.secrets.get("OPENAI_API_KEY"))
 
-uploaded = st.file_uploader('Load saved resume data', type='json')
-if uploaded:
-    data = json.loads(uploaded.read())
-    st.session_state.user_data = data
-    # Ensure sections exists after loading
+def read_pdf(pdf_path):
+    with pdfplumber.open(pdf_path) as pdf:
+        text = ''
+        for page in pdf.pages:
+            text += page.extract_text()
+        return text
+
+schema_dict = {"type":"object","properties":{"header":{"type":"object","properties":{"name":{"type":"string"},"subheader":{"type":"array","items":{"type":"string"},"description":"Contact lines such as citizenship, LinkedIn, phone, email."},"summary":{"type":"string"}},"required":["name","subheader"]},"sections":{"type":"array","items":{"type":"object","properties":{"title":{"type":"string"},"type":{"type":"string","enum":["education","experience","projects","skills"]},"entries":{"type":"array","items":{"oneOf":[{"type":"object","description":"Education entry.","properties":{"institution":{"type":"string"},"institution_detail":{"type":"array","items":{"type":"string"}},"date":{"type":"string"},"degree":{"type":"array","items":{"type":"string"}},"coursework":{"type":"array","items":{"type":"string"}}},"required":["institution","date","degree"]},{"type":"object","description":"Experience entry (used for both professional and leadership experience).","properties":{"role":{"type":"string"},"org":{"type":"string"},"date":{"type":"string"},"bullets":{"type":"array","items":{"type":"string"}}},"required":["role","org","date","bullets"]},{"type":"object","description":"Project entry.","properties":{"name":{"type":"string"},"date":{"type":"string"},"bullets":{"type":"array","items":{"type":"string"}}},"required":["name","date","bullets"]},{"type":"object","description":"Skills entry — one per category row.","properties":{"label":{"type":"string"},"items":{"type":"array","items":{"type":"string"}}},"required":["label","items"]}]}}},"required":["title","type","entries"]}}},"required":["header","sections"]}
+
+with st.container(horizontal=True):
+    uploaded = st.file_uploader('Load saved user profile', type='json')
+    if uploaded:
+        data = json.loads(uploaded.read())
+        st.session_state.user_data = data
+        if 'sections' not in st.session_state.user_data:
+            st.session_state.user_data['sections'] = []
+        st.success('Profile loaded successfully')
+        st.rerun()
+    aiuploaded = st.file_uploader('Import resume with AI', type='pdf')
+if aiuploaded and st.session_state.get('last_ai_file_id') != aiuploaded.file_id:
+    st.session_state.last_ai_file_id = aiuploaded.file_id   # ← mark as processed first
+
+    document = read_pdf(aiuploaded).encode("utf-8", errors="ignore").decode("utf-8")
+
+    response = openai_client.chat.completions.create(
+        model="gpt-5-nano",
+        messages=[
+            {"role": "system", "content": "You extract resume content into structured JSON matching the provided schema."},
+            {"role": "user", "content": f"Convert this document into JSON in the specified format:\n\n{document}"}
+        ],
+        response_format={
+            "type": "json_schema",
+            "json_schema": {"name": "resume", "strict": False, "schema": schema_dict}
+        }
+    )
+
+    st.session_state.user_data = json.loads(response.choices[0].message.content)
     if 'sections' not in st.session_state.user_data:
         st.session_state.user_data['sections'] = []
-    st.success('Profile loaded successfully!')
+    st.success('Profile loaded successfully')
     st.rerun()
 
 st.divider()

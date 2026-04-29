@@ -1,3 +1,4 @@
 openai
 chromadb
 python-docx
+pdfplumber
